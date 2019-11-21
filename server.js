@@ -49,7 +49,11 @@ app.use(logger('dev'));
 app.use(express.static('./public'));
 
 app.get('/', function (req, res, next) {
-    res.render('home');
+    res.render('home', {"items": [
+        {"title": "Снежок", "img": 1, "active": true},
+        {"title": "Снежок", "img": 2},
+        {"title": "Снежок", "img": 3}
+    ]});
 });
 
 // ------------------------------------------------------------------
