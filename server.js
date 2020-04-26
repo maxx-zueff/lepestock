@@ -1,27 +1,52 @@
 // Dependensies
 
-const http         = require('http');
-const express      = require('express');
-const exphbs       = require('express-handlebars');
-const logger       = require('morgan');
-const config       = require('./config.json');
+const http = require('http');
+const express = require('express');
+const exphbs = require('express-handlebars');
+const logger = require('morgan');
+const config = require('./config').port;
+const passport = require('passport');
+
+// const bodyParser = require('body-parser');
+
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const mongoose = require('mongoose');
+// const router = new express.Router();
+
+const index = require('./routers/index');
+const user = require('./routers/user');
 
 // ------------------------------------------------------------------
 // Server
 
-const app     = express();
-const server  = http.createServer(app);
+const app = express();
+const server = http.createServer(app);
 
+mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
 
 // ------------------------------------------------------------------
 // Middleware function handles
 
-function not_found (req, res, next) {
-    next({
-        status: 404,
-        code: 404
-    });
-}
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('we\'re connected!');
+});
+
+require('./models/Users');
+
+app.use(express.json());
+// app.use(bodyParser);
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({mongooseConnection: db})}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // function error_handler (err, req, res, next) {
 
@@ -48,24 +73,46 @@ app.set('view engine', 'handlebars');
 app.use(logger('dev'));
 app.use(express.static('./public'));
 
-app.get('/', function (req, res, next) {
-    res.render('home', {"items": [
-        {"title": "Снежок", "img": 1, "active": true},
-        {"title": "Снежок", "img": 2},
-        {"title": "Снежок", "img": 3}
-    ]});
+app.use(function(req, res, next) {
+  if (req.session) {
+    console.log(req.session);
+    next();
+  } else {
+    console.log('no session in req');
+    next();
+  }
+});
+
+app.use(user);
+app.use(index);
+
+app.get('/', function(req, res) {
+  res.sendfile('index.html');
+});
+
+app.post('/login', (req, res) => {
+  console.log(req.body);
+  sess = req.session;
+  sess.email = req.body.email;
+  res.end('done');
 });
 
 // ------------------------------------------------------------------
 // Error handler for paths
 
-app.use(not_found);
+app.use(function notFound(req, res, next) {
+  next({
+    status: 404,
+    code: 404});
+});
+
 // app.use(error_handler);
 
 // ------------------------------------------------------------------
 // Server listener
 
 server.listen(config.port, function() {
-    console.log( 'http://localhost:' + config.port
-        + ' : server has been launched' );
+  console.log( 'http://localhost:' + config.port +
+    ' : server has been launched' );
 });
+
