@@ -80,8 +80,8 @@ appNext.prepare().then(() => {
     }
   });
 
-  app.use(user);
-  app.use(index);
+  // app.use(user);
+  // app.use(index);
 
   app.post('/login', (req, res) => {
     console.log(req.body);

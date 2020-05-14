@@ -91,7 +91,7 @@ export default function ProductList(props) {
 
         .item {
           text-decoration: none;
-          
+
           color: ${theme.colors.productTitle};
         }
 

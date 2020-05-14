@@ -1,0 +1,88 @@
+ @import '../styles/variables.scss';
+
+.logo {
+	height: 48px;
+	display: flex;
+}
+
+.navContainer {
+	height: 80px;
+}
+
+.menuContainer {
+	display: flex;
+	flex-grow: 1;
+}
+
+.menuContainerTabs {
+	display: flex;
+	justify-content: center;
+	flex-grow: 1;
+}
+
+.menuTab {
+	display: flex;
+	margin: 0 8px;
+	line-height: 1.6;
+
+}
+
+.menuTabButton {
+	padding: 20px 10px;
+	text-transform: uppercase;
+	font-size: .75rem;
+	font-weight: 600;
+	text-align: center;
+	letter-spacing: .11875rem;
+	margin: auto;
+	color: $primary-color;
+}
+
+.btnIcon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: .625rem;
+	font-weight: 600;
+	position: relative;
+	color: $primary-color;
+	border: none;
+	background: transparent;
+	padding: 10px;
+	text-align: center;
+	line-height: inherit;
+
+	svg {
+		width: 18px;
+		height: 22px;
+		fill: $primary-color;
+	}
+
+	span {
+		color: var(--header-default-link-color);
+		font-size: .625rem;
+		font-weight: 600;
+		text-align: center;
+		line-height: 2;
+		color: $primary-color;
+	}
+}
+
+.iconLabel {
+	line-height: inherit;
+	font-size: .5625rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	height: 12px;
+	color: $primary-color;
+	display: block;
+}
+
+.menuContainerLinks {
+	font-size: .875rem;
+	display: flex;
+}
+
+.utilityLinks {
+	display: flex;
+}
