@@ -34,13 +34,19 @@ import Search from '../public/nav/search-icon.svg';
 	const diffTime = Math.abs(soon_occasion.date - today);
 
 
-export default function Component() {
+export default function Component(props) {
 
 
 	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
 	const width = useWindowSize();
 	const point = getBreackpoint(width);
+
+	function handleClick(e) {
+		e.preventDefault();
+		props.updateToggle(!props.toggle);
+	}
+
 
 	return (
 
@@ -105,7 +111,7 @@ export default function Component() {
 					</button>
 				</div>
 				<div className={styles.utilityLinks}>
-					<button className={styles.btnIcon}>
+					<button className={styles.btnIcon} onClick={handleClick}>
 						<span>
 							<Cart />
 							<span className={styles.iconLabel}>Корзина</span>

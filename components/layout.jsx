@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Navbar from './navbar'
+import Cart from './cart'
 import Container from 'react-bootstrap/Container'
 import useWindowSize from '../hooks/useWindowSize'
 import getBreackpoint from '../lib/getBreackpoint'
+import { useState } from "react";
 
 
 export const siteTitle = 'Лепесток';
@@ -11,6 +13,12 @@ export const siteTitle = 'Лепесток';
 export default function Layout({ children }) {
   const width = useWindowSize();
   const point = getBreackpoint(width);
+  const [toggle, setToggle] = useState(false);
+
+  const updateToggle = function (value) {
+    setToggle(value);    
+  }
+
 
   return (<div>
 	<Head>
@@ -28,13 +36,11 @@ export default function Layout({ children }) {
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Navbar />
+      <Navbar toggle={toggle} updateToggle={updateToggle}/>
       <main>
-      	<div><span>Window size: {width}</span></div>
-        <div><span>Window point: {point}</span></div>
 	    {children}
       </main>
-
+      <Cart toggle={toggle} updateToggle={updateToggle}/>
   </div>);
 
 

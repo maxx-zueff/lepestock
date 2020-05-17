@@ -1,0 +1,76 @@
+.open {
+	background: green;
+
+	.panelContent {
+		transform: translateX(0);
+	}
+}
+
+.panelContent {
+	width: 460px;
+	background-color: #fff;
+	bottom: 0;
+	overflow: hidden;
+	position: fixed;
+	right: 0;
+	top: 0;
+	transform: translateX(100%);
+	transition: transform .3s ease-in;
+	z-index: 102;
+}
+
+.panelSlides {
+	transform: translateX(-0px);
+	height: 100%;
+	transition: transform .45s ease-out;
+	display: flex;
+}
+
+.slide {
+    position: relative;
+    display: block;
+    height: 100%;
+    flex: 1 0 100%;
+    overflow-y: auto;
+    overflow-x: hidden;	
+}
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 10;
+
+	button {
+		float: right;
+		height: 18px;
+		margin: 26px 22px;
+		width: 18px;
+		position: relative;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+
+		&::before {
+			background: rgb(0, 0, 0) none repeat scroll 0% 0%;
+			transform: rotate(-45deg);
+			display: block;
+			content: "";
+			position: absolute;
+			top: 0;
+			height: 100%;
+			width: 2px;
+		}
+
+		&::after {
+			background: rgb(0, 0, 0) none repeat scroll 0% 0%;
+			transform: rotate(45deg);
+			display: block;
+			content: "";
+			position: absolute;
+			top: 0;
+			height: 100%;
+			width: 2px;
+		}
+	}
+}
