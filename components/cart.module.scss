@@ -159,16 +159,16 @@
 }
 
 .product {
-	padding-top: 30px;
+	padding: 20px 0;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	border-bottom: solid #ccc 1px;
 }
 
 .productSection {
 	margin-top: 20px;
 	padding-top: 20px;
-	border-top: solid #ccc 1px;
 
 	.productDescription {
 		justify-content: center;
@@ -248,7 +248,7 @@
 .amountContainer {
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
+	justify-content: space-between;
 	align-items: center;
 }
 
@@ -302,4 +302,6 @@
 	padding: 20px;
 	width: 100%;
 	font-weight: 700;
+	position: absolute;
+	bottom: 0;
 }
