@@ -59,11 +59,11 @@ appNext.prepare().then(() => {
 
   app.use(express.json());
 
-  app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({mongooseConnection: db})}));
+  // app.use(session({
+  //   secret: 'keyboard cat',
+  //   resave: false,
+  //   saveUninitialized: true,
+  //   store: new MongoStore({mongooseConnection: db})}));
 
   app.use(passport.initialize());
   app.use(passport.session());
